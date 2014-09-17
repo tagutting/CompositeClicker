@@ -17,13 +17,39 @@
 		<button type="button" ng-click="gameCtrl.startGame()">Click Here</button>
 	</div>
 	<div ng-hide="gameCtrl.showTitle()" ng-controller="PlayerController as playerCtrl">
-		<p>Create one of them player things</p>
-		{{playerCtrl.player.Name}}
-		{{playerCtrl.player.HeightFeet}}'
-		{{playerCtrl.player.HeightInches}}"
-		{{playerCtrl.player.Weight}}
-		<input type="TextField" label="Name" ></input>
-		<button type="button">Create Player</button>
+		<p>Create one of them player things...</p>
+		<br/>
+		<ul>
+			<li>{{playerCtrl.player.Name}}</li>
+			<li>{{playerCtrl.player.HeightFeet}}' {{playerCtrl.player.HeightInches}}"</li>
+			<li>{{playerCtrl.player.Weight}}</li>
+		</ul>
+		<br/>
+		<ul>
+			<li>Name: <input type="TextField" ng-model="playerCtrl.player.Name"></input></li>
+			<li>Height: 
+			<select ng-model="playerCtrl.player.HeightFeet">
+				<option>4</option>
+				<option>5</option>
+				<option>6</option>
+			</select>
+			<select ng-model="playerCtrl.player.HeightInches">
+				<option>0</option>
+				<option>1</option>
+				<option>2</option>
+				<option>3</option>
+				<option>4</option>
+				<option>5</option>
+				<option>6</option>
+				<option>7</option>
+				<option>8</option>
+				<option>9</option>
+				<option>10</option>
+				<option>11</option>
+			</select></li>
+			<li>Weight: <input type="TextField" ng-model="playerCtrl.player.Weight"></input></li>
+			<li><button type="button">Create Player</button></li>
+		</ul>
 	</div>
 </body>
 
