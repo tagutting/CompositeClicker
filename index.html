@@ -1,5 +1,5 @@
 <!DOCTYPE HTML>
-<html ng-app="CompositeClicker">
+<html ng-app="compositeClicker">
  <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -11,10 +11,19 @@
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 	<script src="Content/Scripts/main.js"></script>
 </head>
-<body>
-	<div ng-hide="false">
+<body ng-controller="GameController as gameCtrl">
+	<div ng-show="gameCtrl.showTitle()">
 		<p>Start Here</p>
-		<button type="button">Click Here</button>
+		<button type="button" ng-click="gameCtrl.startGame()">Click Here</button>
+	</div>
+	<div ng-hide="gameCtrl.showTitle()" ng-controller="PlayerController as playerCtrl">
+		<p>Create one of them player things</p>
+		{{playerCtrl.player.Name}}
+		{{playerCtrl.player.HeightFeet}}'
+		{{playerCtrl.player.HeightInches}}"
+		{{playerCtrl.player.Weight}}
+		<input type="TextField" label="Name" ></input>
+		<button type="button">Create Player</button>
 	</div>
 </body>
 
