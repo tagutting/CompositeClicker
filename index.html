@@ -1,56 +1,71 @@
 <!DOCTYPE HTML>
 <html ng-app="compositeClicker">
- <head>
-	<meta charset="utf-8">
-	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>247Sports Composite Clicker</title>
-	<meta name="description" content="">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<link rel="stylesheet" href="Content/Styles/main.css">
-	<script src="Content/Scripts/angular.min.js"></script>
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
-	<script src="Content/Scripts/main.js"></script>
-</head>
-<body ng-controller="GameController as gameCtrl">
-	<div ng-show="gameCtrl.showTitle()">
-		<p>Start Here</p>
-		<button type="button" ng-click="gameCtrl.startGame()">Click Here</button>
-	</div>
-	<div ng-hide="gameCtrl.showTitle()" ng-controller="PlayerController as playerCtrl">
-		<p>Create one of them player things...</p>
-		<br/>
-		<ul>
-			<li>{{playerCtrl.player.Name}}</li>
-			<li>{{playerCtrl.player.HeightFeet}}' {{playerCtrl.player.HeightInches}}"</li>
-			<li>{{playerCtrl.player.Weight}}</li>
-		</ul>
-		<br/>
-		<ul>
-			<li>Name: <input type="TextField" ng-model="playerCtrl.player.Name"></input></li>
-			<li>Height: 
-			<select ng-model="playerCtrl.player.HeightFeet">
-				<option>4</option>
-				<option>5</option>
-				<option>6</option>
-			</select>
-			<select ng-model="playerCtrl.player.HeightInches">
-				<option>0</option>
-				<option>1</option>
-				<option>2</option>
-				<option>3</option>
-				<option>4</option>
-				<option>5</option>
-				<option>6</option>
-				<option>7</option>
-				<option>8</option>
-				<option>9</option>
-				<option>10</option>
-				<option>11</option>
-			</select></li>
-			<li>Weight: <input type="TextField" ng-model="playerCtrl.player.Weight"></input></li>
-			<li><button type="button">Create Player</button></li>
-		</ul>
-	</div>
-</body>
-
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<title>247Sports Composite Clicker</title>
+		<meta name="description" content="">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<link rel="stylesheet" href="Content/Styles/main.css">
+		<script src="Content/Scripts/angular.min.js"></script>
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+		<script src="Content/Scripts/main.js"></script>
+	</head>
+	<body ng-controller="GameController as gameCtrl">
+		<div ng-show="gameCtrl.inState('title')">
+			<p>Start Here</p>
+			<button type="button" ng-click="gameCtrl.consumeEvent('start')">Click Here</button>
+		</div>
+		<div ng-show="gameCtrl.inState('createPlayer')" ng-controller="PlayerCreationController as playerCtrl">
+			<p>Create one of them player things...</p>
+			<br/>
+			<ul>
+				<li>{{playerCtrl.player.Name}}</li>
+				<li>{{playerCtrl.player.HeightFeet}}' {{playerCtrl.player.HeightInches}}"</li>
+				<li>{{playerCtrl.player.Weight}}</li>
+				<li>{{playerCtrl.player.Position}}</li>
+			</ul>
+			<br/>
+			<span>
+			<ul>
+				<li>Name: <input type="TextField" ng-model="playerCtrl.player.Name"></input></li>
+				<li>Height: 
+				<select ng-model="playerCtrl.player.HeightFeet" ng-options="feet for feet in playerCtrl.feet">				
+				</select>
+				<select ng-model="playerCtrl.player.HeightInches" ng-options="inches for inches in playerCtrl.inches">				
+				</select></li>
+				<li>Weight: <select ng-model="playerCtrl.player.Weight" ng-options="weight for weight in playerCtrl.weights">				
+				</select></li>
+				<li>Position: 
+				<select ng-model="playerCtrl.player.Position" ng-options="position for position in playerCtrl.positions">				
+				</select>
+				</li>			
+			</ul>
+			<br/>
+			<button type="button" ng-click="gameCtrl.consumeEvent('create')">Create Player</button>
+			</span>
+		</div>
+		<div ng-show="gameCtrl.inState('play')" ng-controller="PlayerStatController as playerCtrl">
+			<ul>
+				<li>{{playerCtrl.player.Name}}</li>
+				<li>{{playerCtrl.player.HeightFeet}}' {{playerCtrl.player.HeightInches}}"</li>
+				<li>{{playerCtrl.player.Weight}}</li>
+				<li>{{playerCtrl.player.Position}}</li>
+				<li>{{playerCtrl.player.Energy}}</li>
+				<li>{{playerCtrl.player.MaxEnergy}}</li>
+				<li ng-repeat="skill in playerCtrl.player.Skills">{{skill.Name}}: {{skill.Value}}</li>
+			</ul>
+		</div>
+		<div ng-show="gameCtrl.inState('play')" ng-controller="RepsController as repsCtrl">
+			<button type="button" ng-click="repsCtrl.doPushup()">Do a Pushup</button>{{repsCtrl.reps.Pushups}}
+			<button type="button" ng-click="repsCtrl.doSitup()">Do a Situp</button>{{repsCtrl.reps.Situps}}
+			<button type="button" ng-click="repsCtrl.doSprint()">Run a Sprint</button>{{repsCtrl.reps.Sprints}}
+		</div>
+		<div ng-show="gameCtrl.inState('play')" ng-controller="AchievementsController as achievementsCtrl">
+			<h2>Achievements</h2>
+			<ul ng-repeat="achievement in achievementsCtrl.achievements">
+				<li ng-show="achievement.Achieved">{{achievement.Name}}</li>
+			<ul>
+		</div>
+	</body>
 </html>
