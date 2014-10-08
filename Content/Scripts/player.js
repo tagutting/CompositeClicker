@@ -102,7 +102,6 @@ var _achievements = [
 }];
 
 var _player = {
-		Created: false,
 		Name: 'Trent',
 		HeightFeet: 6,
 		HeightInches: 6,

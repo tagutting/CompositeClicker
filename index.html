@@ -11,10 +11,11 @@
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 		<script src="Content/Scripts/main.js"></script>
 		<script src="Content/Scripts/stateMachine.js"></script>
+		<script src="Content/Scripts/actionStateMachine.js"></script>
 		<script src="Content/Scripts/player.js"></script>
 	</head>
 	<body ng-controller="GameController as gameCtrl">
-		<div ng-show="gameCtrl.inState('title')">
+		<div ng-show="gameCtrl.inState('title')" class="center">
 			<h1>247Sports Composite Clicker</h1>
 			<button type="button" ng-click="gameCtrl.consumeEvent('start')">Start</button>
 			<button type="button" ng-click="gameCtrl.consumeEvent('about')">About</button>
@@ -64,9 +65,7 @@
 			</ul>
 		</div>
 		<div ng-show="gameCtrl.inState('play')" ng-controller="RepsController as repsCtrl">
-			<button type="button" ng-click="repsCtrl.doPushup()">Do a Pushup</button>{{repsCtrl.reps.Pushups}}
-			<button type="button" ng-click="repsCtrl.doSitup()">Do a Situp</button>{{repsCtrl.reps.Situps}}
-			<button type="button" ng-click="repsCtrl.doSprint()">Run a Sprint</button>{{repsCtrl.reps.Sprints}}
+			<button type="button" ng-repeat="action in repsCtrl.actions" ng-show="action.canTrigger" ng-click="action.consumeEvent('trigger')">{{action.action.name}}</button>{{action.action.count}}
 		</div>
 		<div ng-show="gameCtrl.inState('play')" ng-controller="AchievementsController as achievementsCtrl">
 			<h2>Achievements</h2>

@@ -12,25 +12,6 @@ var app = angular.module('compositeClicker', []);
 
 app.controller('GameController', function()
 {	
-	/*var _gameState = [
-	{
-		name:'createPlayer',
-		events:{
-			create:'play'
-		}
-	},
-	{
-		name:'play',
-		events:{
-			pauseGame:'paused'
-		}
-	},
-	{
-		name:'paused',
-		events:{
-			resume:'play'
-		}
-	}];*/
 	var defaultFunction = function()
 	{
 		console.log("Unimplemented function");
@@ -83,10 +64,6 @@ app.controller('PlayerCreationController', function()
 	}
 	
 	this.player = _player;
-	
-	this.createPlayer = function(){
-		_player.Created = true;
-	};
 });
 
 app.controller('PlayerStatController', function()
@@ -96,61 +73,34 @@ app.controller('PlayerStatController', function()
 
 app.controller('RepsController', function()
 {
-	this.reps = _reps;
+	//TODO: Pick up here
+	//This controller will have an array of actionStateMachines
+	//to manage each of the actions. ng-repeat will handle iteration
 	
-	this.checkPushups = function()
-	{
-		for(i in _achievements)
-		{
-			var achievement = _achievements[i];
-			if(!achievement.Achieved && achievement.Name.indexOf('Pushup') > -1 && achievement.RepsNeeded <= _reps.Pushups)
-			{
-				achievement.Achieved = true;
-			}
-		}
-	};
+	//Actions
+	this.actions = [];
+	var pushupAction = new Action("Do Pushups");
+	var situpAction = new Action("Do Situps");
 	
-	this.checkSitups = function()
+	//Requirements
+	var pushupRequirements = [];
+	for(var i = 1; i < 10; ++i)
 	{
-		for(i in _achievements)
-		{
-			var achievement = _achievements[i];
-			if(!achievement.Achieved && achievement.Name.indexOf('Situp') > -1 && achievement.RepsNeeded <= _reps.Situps)
-			{
-				achievement.Achieved = true;
-			}
-		}
-	};
+		pushupRequirements.push(new Requirement(pushupAction, i));
+	}
 	
-	this.checkSprints = function()
+	//Achievements
+	var pushupAchievements = [];
+	for(i in pushupRequirements)
 	{
-		for(i in _achievements)
-		{
-			var achievement = _achievements[i];
-			if(!achievement.Achieved && achievement.Name.indexOf('Sprint') > -1 && achievement.RepsNeeded <= _reps.Sprints)
-			{
-				achievement.Achieved = true;
-			}
-		}
-	};
-
-	this.doPushup =  function()
-	{
-		_reps.Pushups += 1;
-		this.checkPushups();
-	};
+		var achievement = new Achievement("Did " + pushupRequirements[i].threshold + " pushups.");
+		achievement.requirements.push(pushupRequirements[i]);
+		pushupAchievements.push(achievement);
+	}
 	
-	this.doSitup =  function()
-	{
-		_reps.Situps += 1;
-		this.checkSitups();
-	};
-	
-	this.doSprint =  function()
-	{
-		_reps.Sprints += 1;
-		this.checkSprints();
-	};
+	pushupAction.achievements = pushupAchievements;
+	var actionSM = new ActionStateMachine(pushupAction);
+	this.actions.push(actionSM);
 });
 
 app.controller('AchievementsController', function()
