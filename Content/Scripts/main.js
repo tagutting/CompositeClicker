@@ -14,7 +14,7 @@ app.controller('GameController', function()
 {	
 	var defaultFunction = function()
 	{
-		console.log("Unimplemented function");
+            console.log("Unimplemented function");
 	};
 
 	var _gameState = [];
@@ -49,7 +49,7 @@ app.controller('GameController', function()
 	_gameState.push(playState);
 	_gameState.push(pausedState);
 
-	StateMachine.call(this, _gameState);	
+        this.sm = new StateMachine(_gameState);
 });
 
 app.controller('PlayerCreationController', function()
@@ -60,7 +60,7 @@ app.controller('PlayerCreationController', function()
 	this.weights = [];
 	for(var i = 125; i <= 350; i++)
 	{
-		this.weights.push(i);
+            this.weights.push(i);
 	}
 	
 	this.player = _player;
@@ -84,9 +84,9 @@ app.controller('RepsController', function()
 	
 	//Requirements
 	var pushupRequirements = [];
-	for(var i = 1; i < 10; ++i)
+	for(var i = 1; i < 100; ++i)
 	{
-		pushupRequirements.push(new Requirement(pushupAction, i));
+            pushupRequirements.push(new Requirement(pushupAction, i));
 	}
 	
 	//Achievements
@@ -101,11 +101,6 @@ app.controller('RepsController', function()
 	pushupAction.achievements = pushupAchievements;
 	var actionSM = new ActionStateMachine(pushupAction);
 	this.actions.push(actionSM);
-});
-
-app.controller('AchievementsController', function()
-{
-	this.achievements = _achievements;
 });
 
 })();

@@ -1,84 +1,82 @@
 <!DOCTYPE HTML>
 <html ng-app="compositeClicker">
-	<head>
-		<meta charset="utf-8">
-		<meta http-equiv="X-UA-Compatible" content="IE=edge">
-		<title>247Sports Composite Clicker</title>
-		<meta name="description" content="">
-		<meta name="viewport" content="width=device-width, initial-scale=1">
-		<link rel="stylesheet" href="Content/Styles/main.css">
-		<script src="Content/Scripts/angular.min.js"></script>
-		<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
-		<script src="Content/Scripts/main.js"></script>
-		<script src="Content/Scripts/stateMachine.js"></script>
-		<script src="Content/Scripts/actionStateMachine.js"></script>
-		<script src="Content/Scripts/player.js"></script>
-	</head>
-	<body ng-controller="GameController as gameCtrl">
-		<div ng-show="gameCtrl.inState('title')" class="center">
-			<h1>247Sports Composite Clicker</h1>
-			<button type="button" ng-click="gameCtrl.consumeEvent('start')">Start</button>
-			<button type="button" ng-click="gameCtrl.consumeEvent('about')">About</button>
-		</div>
-		<div ng-show="gameCtrl.inState('aboutState')">
-			<p>This is some fancy verbiage about how awesome this game is. A little bit about the back story of your rise to the top... started from the bottom, now we here.  Some other descriptive adjectives here and hot damn we got us a paragraph thingy.</p>
-			<button type="button" ng-click="gameCtrl.consumeEvent('returnToTitle')">Return</button>
-		</div>
-		<div ng-show="gameCtrl.inState('createPlayer')" ng-controller="PlayerCreationController as playerCtrl">
-			<p>Create one of them player things...</p>
-			<br/>
-			<ul>
-				<li>{{playerCtrl.player.Name}}</li>
-				<li>{{playerCtrl.player.HeightFeet}}' {{playerCtrl.player.HeightInches}}"</li>
-				<li>{{playerCtrl.player.Weight}}</li>
-				<li>{{playerCtrl.player.Position}}</li>
-			</ul>
-			<br/>
-			<span>
-			<ul>
-				<li>Name: <input type="TextField" ng-model="playerCtrl.player.Name"></input></li>
-				<li>Height: 
-				<select ng-model="playerCtrl.player.HeightFeet" ng-options="feet for feet in playerCtrl.feet">				
-				</select>
-				<select ng-model="playerCtrl.player.HeightInches" ng-options="inches for inches in playerCtrl.inches">				
-				</select></li>
-				<li>Weight: <select ng-model="playerCtrl.player.Weight" ng-options="weight for weight in playerCtrl.weights">				
-				</select></li>
-				<li>Position: 
-				<select ng-model="playerCtrl.player.Position" ng-options="position for position in playerCtrl.positions">				
-				</select>
-				</li>			
-			</ul>
-			<br/>
-			<button type="button" ng-click="gameCtrl.consumeEvent('create')">Create Player</button>
-			</span>
-		</div>
-		<div ng-show="gameCtrl.inState('play')" ng-controller="PlayerStatController as playerCtrl">
-			<ul>
-				<li>{{playerCtrl.player.Name}}</li>
-				<li>{{playerCtrl.player.HeightFeet}}' {{playerCtrl.player.HeightInches}}"</li>
-				<li>{{playerCtrl.player.Weight}}</li>
-				<li>{{playerCtrl.player.Position}}</li>
-				<li>{{playerCtrl.player.Energy}}</li>
-				<li>{{playerCtrl.player.MaxEnergy}}</li>
-				<li ng-repeat="skill in playerCtrl.player.Skills">{{skill.Name}}: {{skill.Value}}</li>
-			</ul>
-		</div>
-		<div ng-show="gameCtrl.inState('play')" ng-controller="RepsController as repsCtrl">
-			<button type="button" ng-repeat="action in repsCtrl.actions" ng-show="action.canTrigger" ng-click="action.consumeEvent('trigger')">{{action.action.name}}</button>{{action.action.count}}
-		</div>
-		<div ng-show="gameCtrl.inState('play')" ng-controller="AchievementsController as achievementsCtrl">
-			<h2>Achievements</h2>
-			<ul ng-repeat="achievement in achievementsCtrl.achievements">
-				<li ng-show="achievement.Achieved">{{achievement.Name}}</li>
-			<ul>
-		</div>
-		<div ng-show="gameCtrl.inState('play')">
-			<button type="button" ng-click="gameCtrl.consumeEvent('pauseGame')">Pause</button>
-		</div>
-		<div ng-show="gameCtrl.inState('paused')">
-			<h1>Paused</h1>
-			<button type="button" ng-click="gameCtrl.consumeEvent('resume')">Resume</button>
-		</div>
-	</body>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>247Sports Composite Clicker</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="Content/Styles/main.css">
+        <script src="Content/Scripts/angular.min.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+        <script src="Content/Scripts/main.js"></script>
+        <script src="Content/Scripts/stateMachine.js"></script>
+        <script src="Content/Scripts/actionStateMachine.js"></script>
+        <script src="Content/Scripts/player.js"></script>
+    </head>
+    <body ng-controller="GameController as gameCtrl">
+        <div ng-show="gameCtrl.sm.inState('title')" class="center">
+            <h1>247Sports Composite Clicker</h1>
+            <button type="button" ng-click="gameCtrl.sm.consumeEvent('start')">Start</button>
+            <button type="button" ng-click="gameCtrl.sm.consumeEvent('about')">About</button>
+        </div>
+        <div ng-show="gameCtrl.sm.inState('aboutState')">
+            <p>This is some fancy verbiage about how awesome this game is. A little bit about the back story of your rise to the top... started from the bottom, now we here.  Some other descriptive adjectives here and hot damn we got us a paragraph thingy.</p>
+            <button type="button" ng-click="gameCtrl.sm.consumeEvent('returnToTitle')">Return</button>
+        </div>
+        <div ng-show="gameCtrl.sm.inState('createPlayer')" ng-controller="PlayerCreationController as playerCtrl">
+            <p>Create one of them player things...</p>
+            <br/>
+            <ul>
+                <li>{{playerCtrl.player.Name}}</li>
+                <li>{{playerCtrl.player.HeightFeet}}' {{playerCtrl.player.HeightInches}}"</li>
+                <li>{{playerCtrl.player.Weight}}</li>
+                <li>{{playerCtrl.player.Position}}</li>
+            </ul>
+            <br/>
+            <ul>
+                <li>Name: <input type="TextField" ng-model="playerCtrl.player.Name"></input></li>
+                <li>Height: 
+                    <select ng-model="playerCtrl.player.HeightFeet" ng-options="feet for feet in playerCtrl.feet">				
+                    </select>
+                    <select ng-model="playerCtrl.player.HeightInches" ng-options="inches for inches in playerCtrl.inches">				
+                    </select></li>
+                <li>Weight: <select ng-model="playerCtrl.player.Weight" ng-options="weight for weight in playerCtrl.weights">				
+                    </select></li>
+                <li>Position: 
+                    <select ng-model="playerCtrl.player.Position" ng-options="position for position in playerCtrl.positions">				
+                    </select>
+                </li>			
+            </ul>
+            <br/>
+            <button type="button" ng-click="gameCtrl.sm.consumeEvent('create')">Create Player</button>
+        </div>
+        <div ng-show="gameCtrl.sm.inState('play')" ng-controller="PlayerStatController as playerCtrl">
+            <ul>
+                <li>{{playerCtrl.player.Name}}</li>
+                <li>{{playerCtrl.player.HeightFeet}}' {{playerCtrl.player.HeightInches}}"</li>
+                <li>{{playerCtrl.player.Weight}}</li>
+                <li>{{playerCtrl.player.Position}}</li>
+                <li>{{playerCtrl.player.Energy}}</li>
+                <li>{{playerCtrl.player.MaxEnergy}}</li>
+                <li ng-repeat="skill in playerCtrl.player.Skills">{{skill.Name}}: {{skill.Value}}</li>
+            </ul>
+        </div>
+        <div ng-show="gameCtrl.sm.inState('play')" ng-controller="RepsController as repsCtrl">
+            <button type="button" ng-repeat="action in repsCtrl.actions" ng-show="action.canTrigger" ng-click="action.consumeEvent('trigger')">{{action.action.name}}{{action.action.count}}</button>
+            <h2>Achievements</h2>
+            <div ng-repeat="action in repsCtrl.actions">
+                <ul ng-repeat="achievement in action.action.achievements">
+                    <li ng-show="achievement.achieved">{{achievement.name}}</li>
+                </ul>
+            </div>
+        </div>
+        <div ng-show="gameCtrl.sm.inState('play')">
+            <button type="button" ng-click="gameCtrl.sm.consumeEvent('pauseGame')">Pause</button>
+        </div>
+        <div ng-show="gameCtrl.sm.inState('paused')">
+            <h1>Paused</h1>
+            <button type="button" ng-click="gameCtrl.sm.consumeEvent('resume')">Resume</button>
+        </div>
+    </body>
 </html>
