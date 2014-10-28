@@ -65,9 +65,13 @@
         <div ng-show="gameCtrl.sm.inState('play')" ng-controller="RepsController as repsCtrl">
             <button type="button" ng-repeat="action in repsCtrl.actions" ng-show="action.canTrigger" ng-click="action.consumeEvent('trigger')">{{action.action.name}}{{action.action.count}}</button>
             <h2>Achievements</h2>
-            <div ng-repeat="action in repsCtrl.actions">
-                <ul ng-repeat="achievement in action.action.achievements">
-                    <li ng-show="achievement.achieved">{{achievement.name}}</li>
+            <div>
+                <ul>
+                    <li ng-repeat="action in repsCtrl.actions">
+                        <ul>
+                            <li ng-show="achievement.achieved" ng-repeat="achievement in action.action.achievements">{{achievement.name}}</li>
+                        </ul>
+                    </li>
                 </ul>
             </div>
         </div>
