@@ -44,72 +44,18 @@ var _skills = [
 }
 ];
 
-var _reps = {
-	Pushups: 0,
-	Situps: 0,
-	Sprints: 0,
-	Benchpresses: 0,
-	Squats: 0,
-	Deadlifts: 0,
-	Cleans: 0
-};
-
-var _achievements = [
+function Player()
 {
-	Name: 'Pushup1',
-	RepsNeeded: 1,
-	Achieved: false
-},
-{
-	Name: 'Pushup10',
-	RepsNeeded: 10,
-	Achieved: false
-},
-{
-	Name: 'Pushup100',
-	RepsNeeded: 100,
-	Achieved: false
-},
-{
-	Name: 'Situp1',
-	RepsNeeded: 1,
-	Achieved: false
-},
-{
-	Name: 'Situp10',
-	RepsNeeded: 10,
-	Achieved: false
-},
-{
-	Name: 'Situp100',
-	RepsNeeded: 100,
-	Achieved: false
-},
-{
-	Name: 'Sprint1',
-	RepsNeeded: 1,
-	Achieved: false
-},
-{
-	Name: 'Sprint10',
-	RepsNeeded: 10,
-	Achieved: false
-},
-{
-	Name: 'Sprint100',
-	RepsNeeded: 100,
-	Achieved: false
-}];
-
-var _player = {
-		Name: 'Trent',
-		HeightFeet: 6,
-		HeightInches: 6,
-		Weight: 290,
-		Position: 'OL',
-		Energy: 50,
-		MaxEnergy: 100
-	};
+    this.Name = 'Trent';
+    this.HeightFeet = 6;
+    this.HeightInches = 6;
+    this.Weight = 290;
+    this.Position = 'OL';
+    this.MinEnergy = 0;
+    this.Energy = 75;
+    this.MaxEnergy = 100;
+    
+}
+var _player = new Player();
 
 _player.Skills = _skills;
-_player.Reps = _reps;

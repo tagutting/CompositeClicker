@@ -50,8 +50,9 @@ function Progression(addition, threshold)
     };
 };
 
-function Action(name)
+function Action(name, player)
 {
+    this.player = player;
     this.name = name;
     this.progressions = [];
     this.achievements = [];
@@ -61,6 +62,7 @@ function Action(name)
     this.trigger = function ()
     {
         this.count += this.amountToEarn;
+        this.player.Energy -= this.amountToEarn;
     };
 
     this.updateProgress = function ()
@@ -78,8 +80,7 @@ function Action(name)
             this.achievements[ach].evaluate();
         }
     };
-}
-;
+};
 
 function ActionStateMachine(action)
 {
